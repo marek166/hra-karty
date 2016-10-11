@@ -1,0 +1,87 @@
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> 
+<html lang="en"> <head> <meta http-equiv="content-type" content="text/html; charset=utf-8"> 
+
+<title>Title Goes Here</title> 
+</head> 
+
+
+<body> 
+<canvas id="myCanvas" width="800" height="600" style="border:1px solid #000000;"></canvas>
+
+<script>
+var canvas = document.getElementById('myCanvas');
+var can = canvas.getContext("2d");
+var cards_img = new Image();
+var background = new Image();
+
+go();
+function go(){
+    background.src = 'img/back.jpg';   
+    cards_img.src = 'img/cards.png';
+  
+}
+
+var cards_name = ['a','2','3','4','5','6','7','8','9','10','j','q','k'];
+
+var card = function(name,x,y,cut_heigth,cut_width){
+    return {
+        name:name,
+        x_pos:x,
+        y_pos:y,
+        cut_heigth:cut_heigth,
+        cut_width:cut_width,
+    }
+}
+
+
+var cards = [];
+var add_cards=function(){
+    x_pos = 50;
+    cut_width = 0;
+    for (i=0;i<cards_name.length;i++){
+        cards.push(card(cards_name[i],x_pos,100,244,cut_width));
+        x_pos += 50;
+        cut_width += 167;
+    }
+}
+add_cards();
+/*
+function render(){
+    x = 0;
+    y = 0;
+    x_pos = 50;
+    y_pos = 100;
+    for (i=0;i<13;i++){
+        can.drawImage(cards,x,y,167,244,x_pos,y_pos,130,180);
+        x += 167;
+        x_pos += 50;
+    }
+}
+*/
+
+
+function render(){
+    can.clearRect(0,0,800,600)
+    can.drawImage(background,0,0);
+    for (i=0;i<cards.length;i++){
+        can.drawImage(cards_img,cards[i].cut_width,cards[i].cut_heigth,167,244,cards[i].x_pos,cards[i].y_pos,130,180);
+    }
+}
+
+setInterval(render,1000/30);
+
+console.log(cards);
+
+
+
+</script>
+
+
+</body> 
+</html>
+
+
+
+
